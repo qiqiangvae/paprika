@@ -12,6 +12,7 @@
         <module>paprika-core</module>
         <module>paprika-plugins</module>
         <module>paprika-slot</module>
+        <module>paprika-component</module>
     </modules>
 
     <dependencies>

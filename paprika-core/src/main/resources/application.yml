@@ -1,2 +1,6 @@
 server:
   port: 6798
+paprika:
+  plugin:
+    enable:
+      echo: false
