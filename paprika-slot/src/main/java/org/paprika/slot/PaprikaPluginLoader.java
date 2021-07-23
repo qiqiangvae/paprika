@@ -14,4 +14,6 @@ public interface PaprikaPluginLoader {
      * @return 子容器
      */
     ConfigurableApplicationContext getApplicationContext(ApplicationContext parent);
+
+    CommandDispatcher getCommandDispatcher();
 }

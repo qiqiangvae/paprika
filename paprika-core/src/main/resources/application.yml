@@ -4,3 +4,7 @@ paprika:
   plugin:
     enable:
       echo: false
+      git: true
+  git:
+    home: /usr/local/bin
+    project-home: /Users/qiqiang/Desktop

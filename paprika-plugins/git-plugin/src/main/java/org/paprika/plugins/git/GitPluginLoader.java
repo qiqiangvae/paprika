@@ -1,4 +1,4 @@
-package org.paprika.plugins.echo;
+package org.paprika.plugins.git;
 
 import org.paprika.slot.CommandDispatcher;
 import org.paprika.slot.PaprikaPlugin;
@@ -8,22 +8,24 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
- * echo plugin
+ * git plugin
  *
  * @author qiqiang
  */
-@PaprikaPlugin("echo")
-public class EchoPluginLoader implements PaprikaPluginLoader {
+@PaprikaPlugin("git")
+public class GitPluginLoader implements PaprikaPluginLoader {
+    private ConfigurableApplicationContext context;
 
     @Override
     public ConfigurableApplicationContext getApplicationContext(ApplicationContext parent) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        context.register(EchoPluginConfiguration.class);
+        context.register(GitPluginConfiguration.class);
+        this.context = context;
         return context;
     }
 
     @Override
     public CommandDispatcher getCommandDispatcher() {
-        return null;
+        return context.getBean(GitCommandDispatcher.class);
     }
 }

@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>echo-plugin</module>
+        <module>git-plugin</module>
     </modules>
 
 

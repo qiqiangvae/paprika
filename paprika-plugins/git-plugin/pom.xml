@@ -3,41 +3,29 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>paprika</artifactId>
+        <artifactId>paprika-plugins</artifactId>
         <groupId>org.paprika</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>paprika-core</artifactId>
+    <artifactId>git-plugin</artifactId>
+
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.paprika</groupId>
+            <artifactId>paprika-component</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.paprika</groupId>
             <artifactId>paprika-slot</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- paprika plugins -->
         <dependency>
-            <groupId>org.paprika</groupId>
-            <artifactId>echo-plugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.paprika</groupId>
-            <artifactId>git-plugin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <!-- paprika plugins -->
-        <dependency>
-            <groupId>org.paprika</groupId>
-            <artifactId>paprika-component</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
-
 </project>

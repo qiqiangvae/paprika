@@ -21,20 +21,14 @@ import java.util.Map;
 @Slf4j
 public class PaprikaPluginBoot implements ApplicationContextAware, InitializingBean {
     private ApplicationContext parentContext;
-    private Map<String, ConfigurableApplicationContext> pluginContextMap;
     private SlotPluginProperties slotPluginProperties;
     private Map<String, PaprikaPluginLoaderHolder> loaderHolderMap;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.parentContext = applicationContext;
-        this.pluginContextMap = new HashMap<>();
         this.slotPluginProperties = parentContext.getBean(SlotPluginProperties.class);
         this.loaderHolderMap = new HashMap<>();
-    }
-
-    public Map<String, ConfigurableApplicationContext> getPluginContextMap() {
-        return pluginContextMap;
     }
 
     @Override
@@ -57,7 +51,8 @@ public class PaprikaPluginBoot implements ApplicationContextAware, InitializingB
                 ConfigurableApplicationContext context = pluginLoader.getApplicationContext(parentContext);
                 context.setParent(parentContext);
                 context.refresh();
-                pluginContextMap.put(pluginName, context);
+                holder.setContext(context);
+                holder.setCommandDispatcher(pluginLoader.getCommandDispatcher());
                 log.info("成功开启插件[{}]", pluginName);
             } else {
                 log.info("未开启插件[{}]", pluginName);
@@ -73,19 +68,25 @@ public class PaprikaPluginBoot implements ApplicationContextAware, InitializingB
         ConfigurableApplicationContext context = pluginLoader.getApplicationContext(parentContext);
         context.setParent(parentContext);
         context.refresh();
-        pluginContextMap.put(pluginName, context);
+        holder.setContext(context);
+        holder.setCommandDispatcher(pluginLoader.getCommandDispatcher());
         log.info("成功开启插件[{}]", pluginName);
         holder.setEnable(true);
     }
 
     public void disablePlugin(String pluginName) {
         PaprikaPluginLoaderHolder holder = loaderHolderMap.get(pluginName);
-        ConfigurableApplicationContext context = pluginContextMap.get(pluginName);
+        ConfigurableApplicationContext context = holder.getContext();
         if (context.isRunning()) {
             context.close();
         }
-        pluginContextMap.remove(pluginName);
         log.info("成功关闭插件[{}]", pluginName);
         holder.setEnable(false);
+        holder.setContext(null);
+        holder.setCommandDispatcher(null);
+    }
+
+    public Map<String, PaprikaPluginLoaderHolder> getLoaderHolderMap() {
+        return loaderHolderMap;
     }
 }
